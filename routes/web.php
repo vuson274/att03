@@ -40,3 +40,6 @@ Route::get('/session',[\App\Http\Controllers\SessionController::class,'viewSessi
 Route::get('/product',[\App\Http\Controllers\ProductController::class,'list'])->name('product');
 Route::get('/cart/{id}',[\App\Http\Controllers\ProductController::class,'card'])->name('cart');
 Route::get('/list-cart',[\App\Http\Controllers\ProductController::class,'listCart'])->name('list.cart');
+Route::get('sendmail', function (){
+    \Illuminate\Support\Facades\Mail::to('vuthanhson041995@gmail.com')->send(new \App\Mail\Message());
+});
