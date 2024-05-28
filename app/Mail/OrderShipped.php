@@ -9,8 +9,9 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Mail;
 
-class Message extends Mailable
+class OrderShipped extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -19,10 +20,9 @@ class Message extends Mailable
      *
      * @return void
      */
-    public $name;
     public function __construct()
     {
-        $this->name = "Son";
+        //
     }
 
     /**
@@ -45,7 +45,7 @@ class Message extends Mailable
     public function content()
     {
         return new Content(
-            view: 'message',
+            markdown: 'emails.orders.shipped',
         );
     }
 
@@ -57,6 +57,7 @@ class Message extends Mailable
     public function attachments()
     {
         return [
+            Attachment::fromStorage('test.txt'),
             Attachment::fromPath('https://media-cdn-v2.laodong.vn/storage/newsportal/2023/8/26/1233821/Giai-Nhi-1--Nang-Tre.jpg'),
         ];
     }
