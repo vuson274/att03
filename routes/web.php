@@ -41,5 +41,12 @@ Route::get('/product',[\App\Http\Controllers\ProductController::class,'list'])->
 Route::get('/cart/{id}',[\App\Http\Controllers\ProductController::class,'card'])->name('cart');
 Route::get('/list-cart',[\App\Http\Controllers\ProductController::class,'listCart'])->name('list.cart');
 Route::get('sendmail', function (){
-    \Illuminate\Support\Facades\Mail::to('vuthanhson041995@gmail.com')->send(new \App\Mail\Message());
+    // \Illuminate\Support\Facades\Mail::to('vuthanhson041995@gmail.com')->send(new \App\Mail\Message());
+    dispatch(new \App\Jobs\SendMail());
+});
+
+Route::get('/lang', function (\Illuminate\Http\Request $request){
+    $lang = $request->query('lang');
+    \Illuminate\Support\Facades\App::setLocale($lang);
+    return view('lang');
 });
